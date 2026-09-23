@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Our Little Memory ♡</title>
+
+  <meta
+    name="description"
+    content="我們的 PHOTOISM 拍貼回憶"
+  >
+
+  <style>
+    /* =========================
+       基本設定
+    ========================= */
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Noto Sans TC",
+        "PingFang TC",
+        "Microsoft JhengHei",
+        sans-serif;
+
+      color: #4d4a4a;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(255, 214, 224, 0.75),
+          transparent 25%
+        ),
+        radial-gradient(
+          circle at 90% 20%,
+          rgba(255, 239, 193, 0.8),
+          transparent 25%
+        ),
+        linear-gradient(
+          135deg,
+          #fffaf7 0%,
+          #fff5f7 48%,
+          #f9f5ff 100%
+        );
+
+      overflow-x: hidden;
+    }
+
+
+    /* =========================
+       浮動裝飾
+    ========================= */
+
+    .floating {
+      position: fixed;
+
+      pointer-events: none;
+
+      z-index: 0;
+
+      opacity: 0.65;
+
+      animation: float 7s ease-in-out infinite;
+
+      user-select: none;
+    }
+
+    .heart1 {
+      top: 9%;
+      left: 7%;
+      font-size: 34px;
+      animation-delay: -1s;
+    }
+
+    .heart2 {
+      top: 22%;
+      right: 8%;
+      font-size: 25px;
+      animation-delay: -3s;
+    }
+
+    .heart3 {
+      bottom: 13%;
+      left: 5%;
+      font-size: 26px;
+      animation-delay: -5s;
+    }
+
+    .cookie {
+      bottom: 7%;
+      right: 6%;
+      font-size: 38px;
+      animation-delay: -2s;
+    }
+
+
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0) rotate(-4deg);
+      }
+
+      50% {
+        transform: translateY(-13px) rotate(5deg);
+      }
+    }
+
+
+    /* =========================
+       首頁標題
+    ========================= */
+
+    .hero {
+      position: relative;
+
+      z-index: 1;
+
+      text-align: center;
+
+      padding: 72px 20px 28px;
+    }
+
+
+    .eyebrow {
+      display: inline-block;
+
+      padding: 7px 15px;
+
+      border-radius: 999px;
+
+      background: rgba(255, 255, 255, 0.72);
+
+      border: 1px solid rgba(226, 176, 190, 0.35);
+
+      color: #c98298;
+
+      font-size: 13px;
+
+      letter-spacing: 3px;
+
+      box-shadow:
+        0 8px 25px rgba(180, 130, 150, 0.08);
+    }
+
+
+    h1 {
+      margin: 18px 0 8px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(38px, 8vw, 72px);
+
+      letter-spacing: 2px;
+
+      color: #554b4d;
+
+      line-height: 1.05;
+    }
+
+
+    .subtitle {
+      margin: 0 auto;
+
+      max-width: 620px;
+
+      color: #8b7e82;
+
+      font-size: 15px;
+
+      line-height: 1.9;
+    }
+
+
+    /* =========================
+       照片區
+    ========================= */
+
+    .photo-card {
+      position: relative;
+
+      z-index: 1;
+
+      width: min(88vw, 650px);
+
+      margin: 34px auto 24px;
+
+      padding: 12px;
+
+      background: rgba(255, 255, 255, 0.88);
+
+      border-radius: 20px;
+
+      box-shadow:
+        0 30px 70px rgba(112, 77, 91, 0.18),
+        0 4px 12px rgba(112, 77, 91, 0.08);
+
+      transform: rotate(-1deg);
+
+      transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease;
+    }
+
+
+    .photo-card:hover {
+      transform:
+        rotate(0deg)
+        translateY(-5px);
+
+      box-shadow:
+        0 35px 80px rgba(112, 77, 91, 0.22);
+    }
+
+
+    .photo-card img {
+      display: block;
+
+      width: 100%;
+
+      height: auto;
+
+      border-radius: 12px;
+    }
+
+
+    /* =========================
+       照片說明
+    ========================= */
+
+    .caption {
+      position: relative;
+
+      z-index: 1;
+
+      width: min(88vw, 650px);
+
+      margin: 0 auto;
+
+      text-align: center;
+    }
+
+
+    .caption p {
+      margin: 12px 0;
+
+      font-size: 16px;
+
+      color: #6f6568;
+    }
+
+
+    .dots {
+      margin-top: 18px;
+
+      color: #d993a8;
+
+      letter-spacing: 8px;
+
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       回憶文字卡片
+    ========================= */
+
+    .memory {
+      position: relative;
+
+      z-index: 1;
+
+      width: min(90vw, 760px);
+
+      margin: 64px auto 70px;
+
+      padding: 32px 28px;
+
+      border-radius: 24px;
+
+      background: rgba(255, 255, 255, 0.56);
+
+      border: 1px solid rgba(255, 255, 255, 0.9);
+
+      backdrop-filter: blur(10px);
+
+      text-align: center;
+    }
+
+
+    .memory h2 {
+      margin: 0 0 14px;
+
+      font-size: 22px;
+
+      font-weight: 600;
+
+      color: #62565a;
+    }
+
+
+    .memory p {
+      margin: 0;
+
+      line-height: 2;
+
+      color: #817579;
+
+      font-size: 15px;
+    }
+
+
+    /* =========================
+       Footer
+    ========================= */
+
+    footer {
+      position: relative;
+
+      z-index: 1;
+
+      padding: 22px;
+
+      text-align: center;
+
+      color: #ad969e;
+
+      font-size: 12px;
+
+      letter-spacing: 1px;
+    }
+
+
+    /* =========================
+       手機版
+    ========================= */
+
+    @media (max-width: 600px) {
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .photo-card {
+        width: 92vw;
+      }
+
+      .memory {
+        width: 90vw;
+
+        padding: 26px 20px;
+      }
+
+      h1 {
+        font-size: 42px;
+      }
+
+      .subtitle {
+        font-size: 14px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       浮動小裝飾
+  ========================= -->
+
+  <div class="floating heart1">♡</div>
+
+  <div class="floating heart2">♡</div>
+
+  <div class="floating heart3">♡</div>
+
+  <div class="floating cookie">🍪</div>
+
+
+
+  <!-- =========================
+       Header
+  ========================= -->
+
+  <header class="hero">
+
+    <span class="eyebrow">
+      TAKE A PHOTOISM
+    </span>
+
+    <h1>
+      Our Little Memory
+    </h1>
+
+    <p class="subtitle">
+
+      把那一天的笑臉，偷偷收藏起來。<br>
+
+      一張照片，四個人，一段不會重播的青春。
+
+    </p>
+
+  </header>
+
+
+
+  <!-- =========================
+       Main
+  ========================= -->
+
+  <main>
+
+
+    <!-- PHOTOISM 照片 -->
+
+    <div class="photo-card">
+
+      <img
+        src="IMG_6593.jpg"
+        alt="我們的 PHOTOISM 拍貼照片"
+      >
+
+    </div>
+
+
+
+    <!-- 照片說明 -->
+
+    <div class="caption">
+
+      <p>
+        📸 PHOTOISM · 四人限定回憶
+      </p>
+
+      <div class="dots">
+        ♡ · ♡ · ♡
+      </div>
+
+    </div>
+
+
+
+    <!-- 回憶文字 -->
+
+    <section class="memory">
+
+      <h2>
+        今天也要好好記住
+      </h2>
+
+      <p>
+
+        有些日子其實很普通，<br>
+
+        但和喜歡的人一起，<br>
+
+        就會變成值得保存很久的照片。
+
+      </p>
+
+    </section>
+
+
+  </main>
+
+
+
+  <!-- =========================
+       Footer
+  ========================= -->
+
+  <footer>
+
+    Made with ♡ · 2026
+
+  </footer>
+
+
+</body>
+</html>
