@@ -1,49 +1,681 @@
-```html
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我們的拍拍貼 ♡</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer Color | 髮型沙龍與時尚特調髮色</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #121212;
+            --bg-card: #1e1e1e;
+            --accent-gold: #d4af37;
+            --accent-warm: #c5a086;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --border-color: #333333;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Header / Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent-warm);
+            font-style: italic;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-warm);
+        }
+
+        .btn-reserve-nav {
+            padding: 0.5rem 1.2rem;
+            border: 1px solid var(--accent-warm);
+            border-radius: 20px;
+            color: var(--accent-warm);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .btn-reserve-nav:hover {
+            background: var(--accent-warm);
+            color: var(--bg-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(180deg, rgba(18,18,18,0.3) 0%, rgba(18,18,18,0.9) 100%),
+                        url('https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            padding: 0 1rem;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .hero-tag {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 4px;
+            color: var(--accent-warm);
+            text-transform: uppercase;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 0.8rem 2.5rem;
+            background: var(--accent-warm);
+            color: var(--bg-primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(197, 160, 134, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 134, 0.5);
+            background: #d5b096;
+        }
+
+        /* Portfolio Gallery Section */
+        .portfolio {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Filter Controls */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--accent-warm);
+            color: var(--accent-warm);
+            background: rgba(197, 160, 134, 0.1);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .img-box {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .img-box img {
+            transform: scale(1.05);
+        }
+
+        .tag-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(18, 18, 18, 0.7);
+            backdrop-filter: blur(5px);
+            color: var(--accent-warm);
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(197, 160, 134, 0.3);
+            font-family: 'Cinzel', serif;
+        }
+
+        .gallery-info {
+            padding: 1.5rem;
+        }
+
+        .gallery-info h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-info p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Color Palette Interactive Showcase */
+        .color-showcase {
+            background: var(--bg-card);
+            padding: 5rem 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .showcase-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .palette-swatches {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            position: relative;
+        }
+
+        .swatch:hover, .swatch.active {
+            transform: scale(1.15);
+            border-color: var(--text-main);
+        }
+
+        .swatch-desc {
+            margin-top: 1.5rem;
+            min-height: 60px;
+            color: var(--text-muted);
+        }
+
+        /* Services & Pricing */
+        .services {
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--accent-warm);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--accent-warm);
+            margin-bottom: 1.2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card .price {
+            font-size: 1.4rem;
+            color: var(--accent-gold);
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        /* Footer & Reservation Modal */
+        footer {
+            background: #0a0a0a;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-warm);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .modal-content {
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            background: #121212;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-main);
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--accent-warm);
+        }
+
+        /* Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+        }
+    </style>
 </head>
 <body>
 
-  <main>
+    <!-- Navigation -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">HAIR <span>DESIGN</span></a>
+            <ul class="nav-links">
+                <li><a href="#portfolio">作品總覽</a></li>
+                <li><a href="#colors">夏日特調髮色</a></li>
+                <li><a href="#services">服務價目</a></li>
+            </ul>
+            <a href="#" class="btn-reserve-nav" onclick="toggleModal(true)">線上預約</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
     <section class="hero">
-      <p>OUR PHOTO BOOTH</p>
-      <h1>和你一起<br><span>拍好多張 ♡</span></h1>
-      <p class="desc">把和好友的可愛回憶，一張一張收藏起來。</p>
-      <a href="#photos">看看我們的回憶 ↓</a>
+        <div class="hero-content">
+            <div class="hero-tag">Summer Color Series</div>
+            <h1>輕盈次剪裁 × 霧棕夏日特調</h1>
+            <p>打造透光質感的流暢曲線，展現極致溫柔的日韓風格髮型</p>
+            <button class="btn-primary" onclick="toggleModal(true)">預約專屬髮型諮詢</button>
+        </div>
     </section>
 
-    <section id="photos" class="photos">
-      <h2>拍拍貼時間 📸</h2>
+    <!-- Portfolio Gallery -->
+    <section class="portfolio" id="portfolio">
+        <div class="section-title">
+            <h2>DESIGN PORTFOLIO</h2>
+            <p>最新髮型視覺作品典藏</p>
+        </div>
 
-      <div class="photo-strip">
-        <div>♡<small>PHOTO 01</small></div>
-        <div>✦<small>PHOTO 02</small></div>
-        <div>♡<small>PHOTO 03</small></div>
-        <div>✿<small>PHOTO 04</small></div>
-      </div>
+        <div class="filter-container">
+            <button class="filter-btn active" onclick="filterGallery('all')">全部作品</button>
+            <button class="filter-btn" onclick="filterGallery('color')">夏日流行色</button>
+            <button class="filter-btn" onclick="filterGallery('cut')">層次剪造型</button>
+            <button class="filter-btn" onclick="filterGallery('perm')">法式慵懶燙</button>
+        </div>
 
-      <p>第一次一起拍拍拍貼 ♡</p>
+        <div class="gallery-grid">
+            <!-- 作品卡片 1 -->
+            <div class="gallery-item" data-category="color cut">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80" alt="霧棕夏日特調">
+                    <span class="tag-badge">Summer Color.</span>
+                </div>
+                <div class="gallery-info">
+                    <h3>奶茶亞麻榛果棕</h3>
+                    <p>高級感低飽和髮色，搭配輕盈層次修飾臉型，打造空氣透光感。</p>
+                </div>
+            </div>
+
+            <!-- 作品卡片 2 -->
+            <div class="gallery-item" data-category="cut perm">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80" alt="日系羽毛剪">
+                    <span class="tag-badge">Layered Cut</span>
+                </div>
+                <div class="gallery-info">
+                    <h3>羽毛修飾曲線剪</h3>
+                    <p>針對顎線設計的羽毛層次，不需繁複整理即可擁有自然蓬鬆度。</p>
+                </div>
+            </div>
+
+            <!-- 作品卡片 3 -->
+            <div class="gallery-item" data-category="perm">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=800&q=80" alt="法式木紋捲">
+                    <span class="tag-badge">French Wave</span>
+                </div>
+                <div class="gallery-info">
+                    <h3>法式木紋大波浪</h3>
+                    <p>如同隨意抓揉般自然的波浪線條，呈現慵懶浪漫的法式風情。</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="message">
-      <h2>Dear bestie ♡</h2>
-      <p>
-        謝謝你陪我留下<br>
-        這些很普通卻很珍貴的日子。
-      </p>
-      <button id="surprise">拍下一張 ♡</button>
-      <p id="result"></p>
+    <!-- Color Palette Showcase -->
+    <section class="color-showcase" id="colors">
+        <div class="showcase-container">
+            <div class="section-title">
+                <h2>HAIR COLOR PALETTE</h2>
+                <p>點擊探索 2026 夏日限定特調顏色</p>
+            </div>
+
+            <div class="palette-swatches">
+                <div class="swatch active" style="background: #8c7365;" onclick="switchColor('#8c7365', '榛果冷棕', '極具修飾膚色效果的質感冷棕，展現低調沉穩的優雅風格。')"></div>
+                <div class="swatch" style="background: #a68b7c;" onclick="switchColor('#a68b7c', '奶茶霧灰', '自帶透明感與輕盈視覺的仙氣色調，黃皮首選顯白髮色。')"></div>
+                <div class="swatch" style="background: #6d5246;" onclick="switchColor('#6d5246', '深醇黑巧', '微光的濃郁黑巧色澤，深邃卻不沉重，維護髮質光澤感的最佳選擇。')"></div>
+                <div class="swatch" style="background: #b59273;" onclick="switchColor('#b59273', '蜜糖香檳', '帶有溫暖陽光質感的暖金棕，隨光線呈現極富層次的光澤。')"></div>
+            </div>
+
+            <div class="swatch-desc" id="color-desc">
+                <h3 id="color-title" style="color: var(--accent-warm); margin-bottom: 0.5rem;">榛果冷棕</h3>
+                <p id="color-text">極具修飾膚色效果的質感冷棕，展現低調沉穩的優雅風格。</p>
+            </div>
+        </div>
     </section>
-  </main>
 
-  <footer>made with love & memories ♡</footer>
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-title">
+            <h2>SERVICES & PRICING</h2>
+            <p>透明化的專業美髮服務項目</p>
+        </div>
 
-  <script src="./script.js"></script>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-scissors"></i>
+                <h3>訂製層次剪裁</h3>
+                <p>包含客製化臉型溝通、深層頭皮清洗與風格吹整。</p>
+                <div class="price">NT$ 1,200 起</div>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                <h3>夏日質感染髮</h3>
+                <p>使用日本進口低敏染劑，含染前頭皮隔離與染後修護。</p>
+                <div class="price">NT$ 2,800 起</div>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-wind"></i>
+                <h3>溫塑慵懶燙髮</h3>
+                <p>專為輕盈結構打造的溫塑燙，燙後線條自然持久。</p>
+                <div class="price">NT$ 3,600 起</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Form -->
+    <div class="modal" id="reserveModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="toggleModal(false)">&times;</span>
+            <h3 style="margin-bottom: 1.5rem; text-align: center;">預約專屬美髮時段</h3>
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>您的姓名</label>
+                    <input type="text" required placeholder="請輸入姓名">
+                </div>
+                <div class="form-group">
+                    <label>聯絡電話</label>
+                    <input type="tel" required placeholder="0912-345-678">
+                </div>
+                <div class="form-group">
+                    <label>預約項目</label>
+                    <select>
+                        <option>訂製剪裁 Design Cut</option>
+                        <option>夏日特調染髮 Summer Color</option>
+                        <option>法式燙髮 Wave Perm</option>
+                        <option>頭皮養護髮質護理 Spa & Treatment</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 1rem;">確認預約</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="social-links">
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-line"></i></a>
+            <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+        <p>&copy; 2026 Hair Design Salon. All rights reserved.</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Modal toggling
+        function toggleModal(show) {
+            const modal = document.getElementById('reserveModal');
+            modal.style.display = show ? 'flex' : 'none';
+        }
+
+        // Gallery Filter logic
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const btns = document.querySelectorAll('.filter-btn');
+
+            btns.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                const itemCats = item.getAttribute('data-category');
+                if (category === 'all' || itemCats.includes(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Color Showcase logic
+        function switchColor(hex, title, desc) {
+            document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.getElementById('color-title').innerText = title;
+            document.getElementById('color-text').innerText = desc;
+        }
+
+        // Handle reservation submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert('感謝您的預約！我們將於 24 小時內傳送確認簡訊給您。');
+            toggleModal(false);
+        }
+    </script>
 </body>
 </html>
-```
